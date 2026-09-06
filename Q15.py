@@ -6,7 +6,7 @@ rng = np.random.default_rng(42)
 A = rng.integers(low=1, high=3, size=(10, 10))
 
 
-def getAggregateByAxis(
+def getAggregateByAxis2D(
     array,
     axis: Literal["horizontal", "vertical"] = "horizontal",
     op: Literal["sum", "mean", "median"] = "sum",
@@ -25,11 +25,10 @@ def getAggregateByAxis(
     return numpyFunction(array, axis=axisDirection)
 
 
-lineSum = getAggregateByAxis(A, "horizontal")
-lineMean = getAggregateByAxis(A, "horizontal", "mean")
-columnSum = getAggregateByAxis(A, "vertical")
-columnMean = getAggregateByAxis(A, "vertical", "mean")
-
+lineSum = getAggregateByAxis2D(A, "horizontal")
+lineMean = getAggregateByAxis2D(A, "horizontal", "mean")
+columnSum = getAggregateByAxis2D(A, "vertical")
+columnMean = getAggregateByAxis2D(A, "vertical", "mean")
 
 
 print("A", lineSum)
