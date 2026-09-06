@@ -1,6 +1,6 @@
 import numpy as np
 
-array = np.array([False, True, False, True, False, False, True, False, False, False])
+array = np.array([False, True, False, True])
 
 def convertToNumber(array):
   return array.astype(int)
