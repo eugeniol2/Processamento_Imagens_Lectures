@@ -3,7 +3,15 @@ from typing import Literal
 
 rng = np.random.default_rng(42)
 
-A = rng.integers(low=0, high=3, size=(4, 5, 3))
+A = rng.integers(low=0, high=100, size=(4, 5, 3))
+
+
+def getMaxValueFlatIndexFromArray(array):
+    return np.argmax(array)
+
+
+def getCoordsFromFlatIndex(index, array):
+    return np.unravel_index(index, array.shape)
 
 
 def getAggregateByAxis3D(
@@ -42,7 +50,7 @@ print(
 )  # percorre sobre os elementos [i][j][k] na segunda posição marcada em 'j'
 print(
     "A axis= 2 \n", thirdDimentionSum
-)  # percorre sobre os elementos  [i][j][k] na primeira posição marcada em 'k'
+)  # percorre sobre os elementos  [i][j][k] na terceira posição marcada em 'k'
 
 
 print(
@@ -53,7 +61,7 @@ print(
 )  # percorre sobre os elementos [i][j][k] na segunda posição marcada em 'j'
 print(
     "B axis= 2 \n", thirdDimentionMean
-)  # percorre sobre os elementos  [i][j][k] na primeira posição marcada em 'k'
+)  # percorre sobre os elementos  [i][j][k] na terceira posição marcada em 'k'
 
 
 print(
@@ -64,4 +72,11 @@ print(
 )  # percorre sobre os elementos [i][j][k] na segunda posição marcada em 'j'
 print(
     "C axis= 2 \n", thirdDimentionHighest
-)  # percorre sobre os elementos  [i][j][k] na primeira posição marcada em 'k'
+)  # percorre sobre os elementos  [i][j][k] na terceira posição marcada em 'k'
+
+
+flatIndex = getMaxValueFlatIndexFromArray(A)
+
+coords = getCoordsFromFlatIndex(flatIndex, A)
+
+print("i, j, k", coords)
