@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Literal
 
-rng = np.random.default_rng(42)
+rng = np.random.default_rng(5)
 
 A = rng.integers(low=1, high=3, size=(10, 10))
 
