@@ -77,30 +77,54 @@ cityOriginalImg = readImageFromMemory(
 
 city_negative_ndArray = convertImageToNegative(cityOriginalImg)
 
-saveImage(imageNdArray=city_negative_ndArray, outPutFolderName='Q1output', name="city_negative", imgType="png")
+saveImage(
+    imageNdArray=city_negative_ndArray,
+    outPutFolderName="Q1output",
+    name="city_negative",
+    imgType="png",
+)
 
 # ================================================================================================
 
 cityRevertedOnYAxis = revertImageOnGivenAxis(imageNdArray=cityOriginalImg, axis=0)
 
 
-saveImage(imageNdArray=cityRevertedOnYAxis, outPutFolderName='Q1output', name="city_vertical_mirrored", imgType="png")
+saveImage(
+    imageNdArray=cityRevertedOnYAxis,
+    outPutFolderName="Q1output",
+    name="city_vertical_mirrored",
+    imgType="png",
+)
 
 # ================================================================================================
 
 cityRescaled = convertImageToRange(imageNdArray=cityOriginalImg, newMin=100, newMax=200)
 
-saveImage(imageNdArray=cityRescaled, outPutFolderName='Q1output', name="city_transformed", imgType="png")
+saveImage(
+    imageNdArray=cityRescaled,
+    outPutFolderName="Q1output",
+    name="city_transformed",
+    imgType="png",
+)
 
 # ================================================================================================
 
 cityEvenRowsInverted = invertEvenRows(imageNdArray=cityOriginalImg)
 
-saveImage(imageNdArray=cityEvenRowsInverted, outPutFolderName='Q1output', name="city_even_rows_inverted", imgType="png")
+saveImage(
+    imageNdArray=cityEvenRowsInverted,
+    outPutFolderName="Q1output",
+    name="city_even_rows_inverted",
+    imgType="png",
+)
 
 # ================================================================================================
 
 cityTopHalfMirrored = mirrorTopHalfOntoBottom(imageNdArray=cityOriginalImg)
 
-saveImage(imageNdArray=cityTopHalfMirrored, outPutFolderName='Q1output', name="city_top_half_mirrored", imgType="png")
-
+saveImage(
+    imageNdArray=cityTopHalfMirrored,
+    outPutFolderName="Q1output",
+    name="city_top_half_mirrored",
+    imgType="png",
+)

@@ -69,7 +69,12 @@ def mirrorTopHalfOntoBottom(imageNdArray):
 
     return mirrored
 
+
 # ================================================================================================
 
 
-originalImg = readImageFromMemory(imgName="baboon_monocromatica", imgDirectory="imagens de entrada", readMode=cv2.IMREAD_GRAYSCALE)
+originalImg = readImageFromMemory(
+    imgName="baboon_monocromatica",
+    imgDirectory="imagens de entrada",
+    readMode=cv2.IMREAD_GRAYSCALE,
+)
