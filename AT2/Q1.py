@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 
 ImageType = Literal["png", "bmp", "tiff", "webp", "pgm", "jpg"]
+Axis = Literal[0, 1]
 
 
 def readImageFromMemory(imgName, imgDirectory, readMode):
@@ -32,16 +33,30 @@ def saveImage(imageNdArray, name, imgType: ImageType = "png"):
 
     return path
 
+
 def convertImageToNegative(city):
     cityNegative = 255 - city
     return cityNegative
 
 
+def revertImageOnGivenAxis(imageNdArray, axis: Axis):
+    return np.flip(m=imageNdArray, axis=axis)
 
-city = readImageFromMemory(imgName="city.png", imgDirectory="imagens de entrada", readMode=cv2.IMREAD_GRAYSCALE)
 
-city_negative_ndArray = convertImageToNegative(city)
+# ================================================================================================
+cityOriginalImg = readImageFromMemory(
+    imgName="city.png", imgDirectory="imagens de entrada", readMode=cv2.IMREAD_GRAYSCALE
+)
 
+city_negative_ndArray = convertImageToNegative(cityOriginalImg)
 
 saveImage(imageNdArray=city_negative_ndArray, name="city_negative", imgType="png")
 
+# ================================================================================================
+
+cityRevertedOnYAxis = revertImageOnGivenAxis(imageNdArray=cityOriginalImg, axis=0)
+
+
+saveImage(imageNdArray=cityRevertedOnYAxis, name="city_reverted", imgType="png")
+
+# ================================================================================================
