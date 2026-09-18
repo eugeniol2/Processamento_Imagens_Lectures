@@ -70,6 +70,17 @@ def mirrorTopHalfOntoBottom(imageNdArray):
     return mirrored
 
 
+def normValues(array):
+    return array / 255
+
+
+def applyGammaCorrection(imageNdArray, gamma):
+    normalized = normValues(imageNdArray)
+    corrected = normalized ** (1.0 / gamma)
+
+    return np.round(corrected * 255).astype(np.uint8)
+
+
 # ================================================================================================
 
 
@@ -79,8 +90,10 @@ originalImg = readImageFromMemory(
     readMode=cv2.IMREAD_GRAYSCALE,
 )
 
-saveImage(
-    imageNdArray=originalImg,
-    name="test",
-    imgType="png",
-)
+baboonGamma15 = applyGammaCorrection(imageNdArray=originalImg, gamma=1.5)
+baboonGamma25 = applyGammaCorrection(imageNdArray=originalImg, gamma=2.5)
+baboonGamma35 = applyGammaCorrection(imageNdArray=originalImg, gamma=3.5)
+
+saveImage(imageNdArray=baboonGamma15, name="baboon_gamma_1_5", imgType="png")
+saveImage(imageNdArray=baboonGamma25, name="baboon_gamma_2_5", imgType="png")
+saveImage(imageNdArray=baboonGamma35, name="baboon_gamma_3_5", imgType="png")
