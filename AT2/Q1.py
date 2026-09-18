@@ -17,8 +17,8 @@ def readImageFromMemory(imgName, imgDirectory, readMode):
     return imageNdArray
 
 
-def saveImage(imageNdArray, name, outPutFolderName, imgType: ImageType = "png"):
-    OUTPUT_DIR = Path(__file__).parent / outPutFolderName
+def saveImage(imageNdArray, name, imgType: ImageType = "png"):
+    OUTPUT_DIR = Path(__file__).parent / (Path(__file__).stem + "_output")
     OUTPUT_DIR.mkdir(exist_ok=True)
 
     extension = "." + imgType.lstrip(".")
@@ -79,7 +79,6 @@ city_negative_ndArray = convertImageToNegative(cityOriginalImg)
 
 saveImage(
     imageNdArray=city_negative_ndArray,
-    outPutFolderName="Q1output",
     name="city_negative",
     imgType="png",
 )
@@ -91,7 +90,6 @@ cityRevertedOnYAxis = revertImageOnGivenAxis(imageNdArray=cityOriginalImg, axis=
 
 saveImage(
     imageNdArray=cityRevertedOnYAxis,
-    outPutFolderName="Q1output",
     name="city_vertical_mirrored",
     imgType="png",
 )
@@ -102,7 +100,6 @@ cityRescaled = convertImageToRange(imageNdArray=cityOriginalImg, newMin=100, new
 
 saveImage(
     imageNdArray=cityRescaled,
-    outPutFolderName="Q1output",
     name="city_transformed",
     imgType="png",
 )
@@ -113,7 +110,6 @@ cityEvenRowsInverted = invertEvenRows(imageNdArray=cityOriginalImg)
 
 saveImage(
     imageNdArray=cityEvenRowsInverted,
-    outPutFolderName="Q1output",
     name="city_even_rows_inverted",
     imgType="png",
 )
@@ -124,7 +120,6 @@ cityTopHalfMirrored = mirrorTopHalfOntoBottom(imageNdArray=cityOriginalImg)
 
 saveImage(
     imageNdArray=cityTopHalfMirrored,
-    outPutFolderName="Q1output",
     name="city_top_half_mirrored",
     imgType="png",
 )

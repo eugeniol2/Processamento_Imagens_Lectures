@@ -18,7 +18,7 @@ def readImageFromMemory(imgName, imgDirectory, readMode):
 
 
 def saveImage(imageNdArray, name, imgType: ImageType = "png"):
-    OUTPUT_DIR = Path(__file__).parent / "Q1output"
+    OUTPUT_DIR = Path(__file__).parent / (Path(__file__).stem + "_output")
     OUTPUT_DIR.mkdir(exist_ok=True)
 
     extension = "." + imgType.lstrip(".")
@@ -74,7 +74,13 @@ def mirrorTopHalfOntoBottom(imageNdArray):
 
 
 originalImg = readImageFromMemory(
-    imgName="baboon_monocromatica",
+    imgName="baboon_monocromatica.png",
     imgDirectory="imagens de entrada",
     readMode=cv2.IMREAD_GRAYSCALE,
+)
+
+saveImage(
+    imageNdArray=originalImg,
+    name="test",
+    imgType="png",
 )
