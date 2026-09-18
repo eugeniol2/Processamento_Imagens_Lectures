@@ -17,8 +17,8 @@ def readImageFromMemory(imgName, imgDirectory, readMode):
     return imageNdArray
 
 
-def saveImage(imageNdArray, name, imgType: ImageType = "png"):
-    OUTPUT_DIR = Path(__file__).parent / "Q1output"
+def saveImage(imageNdArray, name, outPutFolderName, imgType: ImageType = "png"):
+    OUTPUT_DIR = Path(__file__).parent / outPutFolderName
     OUTPUT_DIR.mkdir(exist_ok=True)
 
     extension = "." + imgType.lstrip(".")
@@ -50,7 +50,7 @@ def convertImageToRange(imageNdArray, newMin, newMax):
     normalized = (imageNdArray - currentMin) / (currentMax - currentMin)
     rescaled = normalized * (newMax - newMin) + newMin
 
-    return rescaled
+    return np.round(rescaled).astype(np.uint8)
 
 
 def invertEvenRows(imageNdArray):
@@ -77,30 +77,30 @@ cityOriginalImg = readImageFromMemory(
 
 city_negative_ndArray = convertImageToNegative(cityOriginalImg)
 
-saveImage(imageNdArray=city_negative_ndArray, name="city_negative", imgType="png")
+saveImage(imageNdArray=city_negative_ndArray, outPutFolderName='Q1output', name="city_negative", imgType="png")
 
 # ================================================================================================
 
 cityRevertedOnYAxis = revertImageOnGivenAxis(imageNdArray=cityOriginalImg, axis=0)
 
 
-saveImage(imageNdArray=cityRevertedOnYAxis, name="city_vertical_mirrored", imgType="png")
+saveImage(imageNdArray=cityRevertedOnYAxis, outPutFolderName='Q1output', name="city_vertical_mirrored", imgType="png")
 
 # ================================================================================================
 
 cityRescaled = convertImageToRange(imageNdArray=cityOriginalImg, newMin=100, newMax=200)
 
-saveImage(imageNdArray=cityRescaled, name="city_transformed", imgType="png")
+saveImage(imageNdArray=cityRescaled, outPutFolderName='Q1output', name="city_transformed", imgType="png")
 
 # ================================================================================================
 
 cityEvenRowsInverted = invertEvenRows(imageNdArray=cityOriginalImg)
 
-saveImage(imageNdArray=cityEvenRowsInverted, name="city_even_rows_inverted", imgType="png")
+saveImage(imageNdArray=cityEvenRowsInverted, outPutFolderName='Q1output', name="city_even_rows_inverted", imgType="png")
 
 # ================================================================================================
 
 cityTopHalfMirrored = mirrorTopHalfOntoBottom(imageNdArray=cityOriginalImg)
 
-saveImage(imageNdArray=cityTopHalfMirrored, name="city_top_half_mirrored", imgType="png")
+saveImage(imageNdArray=cityTopHalfMirrored, outPutFolderName='Q1output', name="city_top_half_mirrored", imgType="png")
 
