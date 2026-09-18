@@ -29,6 +29,7 @@ def getAggregateByAxis(
 
     return numpyFunction(array, axis=axis, keepdims=keepdims)
 
+
 def normalizeToRange01(array, axis=None):
     minimo = getAggregateByAxis(array, axis=axis, op="min", keepdims=True)
     maximo = getAggregateByAxis(array, axis=axis, op="max", keepdims=True)
