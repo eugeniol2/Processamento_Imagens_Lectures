@@ -31,7 +31,7 @@ x = np.array([1, 5, 12, 15, 20, 22])
 ```python
 x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
 n = 4
-# Saída: [10, 26, 42]
+# Saída: [10, 26, 5]
 ```
 
 ## Q5. Trocar todos os valores negativos em um vetor por zeros
