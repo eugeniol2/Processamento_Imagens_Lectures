@@ -1,9 +1,62 @@
-# Informações sobre o exercício
+# Atividades de Processamento de Dados — UFRPE
 
-Enunciados da Lista Extra Classe 1. Todas as questões devem ser resolvidas
-com **operações vetorizadas**, sem `for` ou `while`.
+Resoluções das listas extraclasse da disciplina, implementadas em Python com
+NumPy. Todas as questões usam **operações vetorizadas**, sem `for` ou `while`
+para percorrer os dados.
+
+## Estrutura
+
+| Pasta | Conteúdo |
+|-------|----------|
+| `AT1/` | Lista 1 — operações vetorizadas sobre vetores e matrizes |
+
+Cada questão fica em um arquivo próprio (`Q1.py`, `Q2.py`, …), executável de
+forma independente.
+
+## Organização em branches
+
+Cada lista é entregue em sua própria branch:
+
+| Branch | Lista |
+|--------|-------|
+| `LEC1_EugenioAraujo` | AT1 — operações vetorizadas |
+| `LEC2_EugenioAraujo` | AT2 — processamento de imagens |
+
+## Organização do código
+
+Cada operação foi escrita como uma **função nomeada**, em vez de código solto no
+corpo do script. A intenção é que o arquivo continue legível meses depois: o nome
+da função diz o que ela faz, e o bloco final — depois da linha de `====` — reúne
+os dados de entrada, as chamadas e os `print`, funcionando como um resumo da
+questão.
+
+As funções seguem três regras:
+
+- **Recebem e devolvem arrays NumPy**, sem imprimir nada por conta própria. A
+  exibição dos resultados fica toda no bloco final.
+- **Não modificam o argumento recebido**, salvo quando a própria questão pede a
+  alteração no local.
+- **São genéricas quanto ao tamanho.** Dimensões e limites vêm dos próprios
+  arrays, nunca de valores fixos no código.
+
+## Como executar
+
+```bash
+python -m venv .venv
+source .venv/Scripts/activate      # Windows (Git Bash)
+pip install -r requirements.txt
+
+python AT1/Q1.py
+```
+
+## Dependências
+
+`numpy`, `scipy` e `matplotlib` — versões fixadas em
+[requirements.txt](requirements.txt).
 
 ---
+
+# Enunciados — Lista Extra Classe 1
 
 ## Q1. Contar o número de transições de Falso para Verdadeiro em uma sequência
 
