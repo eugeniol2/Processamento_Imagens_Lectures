@@ -1,10 +1,6 @@
 import numpy as np
 from typing import Literal
 
-rng = np.random.default_rng(5)
-
-A = rng.integers(low=1, high=3, size=(10, 10))
-
 
 def getAggregateByAxis2D(
     array,
@@ -25,11 +21,16 @@ def getAggregateByAxis2D(
     return numpyFunction(array, axis=axisDirection)
 
 
+# ================================================================================================
+
+rng = np.random.default_rng(5)
+
+A = rng.integers(low=1, high=3, size=(10, 10))
+
 lineSum = getAggregateByAxis2D(A, "horizontal")
 lineMean = getAggregateByAxis2D(A, "horizontal", "mean")
 columnSum = getAggregateByAxis2D(A, "vertical")
 columnMean = getAggregateByAxis2D(A, "vertical", "mean")
-
 
 print("A", lineSum)
 print("B", columnSum)

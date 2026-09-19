@@ -1,10 +1,5 @@
 import numpy as np
 
-rng = np.random.default_rng(5)
-
-A = rng.integers(low=1, high=2, size=(10, 10))
-B = rng.integers(low=1, high=2, size=(10, 10))
-
 
 def sumTwoMatrices(mA, mB):
     return mA + mB
@@ -25,6 +20,13 @@ def getBothMean(mA, mB):
 def newMatriceWithHighestValues(mA, mB):
     return np.maximum(mA, mB)
 
+
+# ================================================================================================
+
+rng = np.random.default_rng(5)
+
+A = rng.integers(low=1, high=2, size=(10, 10))
+B = rng.integers(low=1, high=2, size=(10, 10))
 
 matricesSum = sumTwoMatrices(A, B)
 matricesDiff = getAbsoluteDiff(A, B)

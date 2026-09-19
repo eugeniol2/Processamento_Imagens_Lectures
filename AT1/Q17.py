@@ -1,12 +1,6 @@
 import numpy as np
 from typing import Literal
 
-np.set_printoptions(precision=3, suppress=True)
-
-rng = np.random.default_rng(5)
-
-A = rng.uniform(low=-50, high=50, size=(10, 10))
-
 
 def subtractTwoArrays(array1, array2):
     return array1 - array2
@@ -29,6 +23,7 @@ def getAggregateByAxis(
 
     return numpyFunction(array, axis=axis, keepdims=keepdims)
 
+
 def normalizeToRange01(array, axis=None):
     minimo = getAggregateByAxis(array, axis=axis, op="min", keepdims=True)
     maximo = getAggregateByAxis(array, axis=axis, op="max", keepdims=True)
@@ -36,12 +31,19 @@ def normalizeToRange01(array, axis=None):
     return subtractTwoArrays(array, minimo) / subtractTwoArrays(maximo, minimo)
 
 
+# ================================================================================================
+
+np.set_printoptions(precision=3, suppress=True)
+
+rng = np.random.default_rng(5)
+
+A = rng.uniform(low=-50, high=50, size=(10, 10))
+
 matrixMin = getAggregateByAxis(A, op="min")
 matrixMax = getAggregateByAxis(A, op="max")
 
 normalized = normalizeToRange01(A)
 normalizedByRow = normalizeToRange01(A, axis=1)
-
 
 print("Matriz original A", A.shape, "\n", A)
 

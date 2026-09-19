@@ -1,7 +1,5 @@
 import numpy as np
 
-array = np.array([False, True, False, True])
-
 
 def convertToNumber(array):
     return array.astype(int)
@@ -19,6 +17,10 @@ def getQ1Results(array):
     subtractionResults = getArrayMinusLastIndex(array) - getArrayMinusFirstIndex(array)
     return np.sum(subtractionResults < 0)
 
+
+# ================================================================================================
+
+array = np.array([False, True, False, True])
 
 Result = getQ1Results(array)
 

@@ -1,10 +1,6 @@
 import numpy as np
 from typing import Literal
 
-rng = np.random.default_rng(5)
-
-A = rng.integers(low=0, high=100, size=(4, 5, 3))
-
 
 def getMaxValueFlatIndexFromArray(array):
     return np.argmax(array)
@@ -22,6 +18,12 @@ def getAggregateByAxis3D(
 
     return numpyFunction(array, axis=axis)
 
+
+# ================================================================================================
+
+rng = np.random.default_rng(5)
+
+A = rng.integers(low=0, high=100, size=(4, 5, 3))
 
 firstDimentionSum = getAggregateByAxis3D(A, op="sum", axis=0)
 
@@ -41,39 +43,35 @@ secondDimentionHighest = getAggregateByAxis3D(A, op="max", axis=1)
 
 thirdDimentionHighest = getAggregateByAxis3D(A, op="max", axis=2)
 
-
 print(
     "A axis= 0 \n", firstDimentionSum
-)  # percorre sobre os elementos  [i][j][k] na primeira posição marcada em 'i'
+)  # percorre sobre os elementos  [i][j][k] na primeira posiÃ§Ã£o marcada em 'i'
 print(
     "A axis= 1 \n", secondDimentionSum
-)  # percorre sobre os elementos [i][j][k] na segunda posição marcada em 'j'
+)  # percorre sobre os elementos [i][j][k] na segunda posiÃ§Ã£o marcada em 'j'
 print(
     "A axis= 2 \n", thirdDimentionSum
-)  # percorre sobre os elementos  [i][j][k] na terceira posição marcada em 'k'
-
+)  # percorre sobre os elementos  [i][j][k] na terceira posiÃ§Ã£o marcada em 'k'
 
 print(
     "B axis= 0 \n", firstDimentionMean
-)  # percorre sobre os elementos  [i][j][k] na primeira posição marcada em 'i'
+)  # percorre sobre os elementos  [i][j][k] na primeira posiÃ§Ã£o marcada em 'i'
 print(
     "B axis= 1 \n", secondDimentionMean
-)  # percorre sobre os elementos [i][j][k] na segunda posição marcada em 'j'
+)  # percorre sobre os elementos [i][j][k] na segunda posiÃ§Ã£o marcada em 'j'
 print(
     "B axis= 2 \n", thirdDimentionMean
-)  # percorre sobre os elementos  [i][j][k] na terceira posição marcada em 'k'
-
+)  # percorre sobre os elementos  [i][j][k] na terceira posiÃ§Ã£o marcada em 'k'
 
 print(
     "C axis= 0 \n", firstDimentionHighest
-)  # percorre sobre os elementos  [i][j][k] na primeira posição marcada em 'i'
+)  # percorre sobre os elementos  [i][j][k] na primeira posiÃ§Ã£o marcada em 'i'
 print(
     "C axis= 1 \n", secondDimentionHighest
-)  # percorre sobre os elementos [i][j][k] na segunda posição marcada em 'j'
+)  # percorre sobre os elementos [i][j][k] na segunda posiÃ§Ã£o marcada em 'j'
 print(
     "C axis= 2 \n", thirdDimentionHighest
-)  # percorre sobre os elementos  [i][j][k] na terceira posição marcada em 'k'
-
+)  # percorre sobre os elementos  [i][j][k] na terceira posiÃ§Ã£o marcada em 'k'
 
 flatIndex = getMaxValueFlatIndexFromArray(A)
 
