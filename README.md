@@ -35,8 +35,14 @@ As funções seguem três regras:
 - **São genéricas quanto ao tamanho.** Dimensões e limites vêm sempre de
   `shape`, nunca de valores fixos no código.
 
-Os arquivos de questão são **autocontidos**: cada um traz as funções de leitura e
-gravação que utiliza, e pode ser executado sozinho, sem depender dos outros.
+Os arquivos de questão são **autocontidos**: toda a lógica de uma questão fica no
+próprio arquivo, e ele pode ser executado sozinho, sem depender das outras
+questões.
+
+A única exceção são as duas funções de entrada e saída, `readImageFromMemory` e
+`saveImage`. Como são idênticas em todas as questões e não fazem parte do que
+cada questão resolve, a partir da `AT3/` elas ficam em `utils.py`, na mesma pasta
+das questões, e são importadas por elas.
 
 ## Organização em branches
 
