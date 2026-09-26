@@ -1,21 +1,21 @@
 # Atividades de Processamento de Dados — UFRPE
 
 Resoluções das listas extraclasse da disciplina, implementadas em Python com
-NumPy. Todas as questões usam **operações vetorizadas**, sem `for` ou `while`
-para percorrer os dados.
+NumPy. As questões usam **operações vetorizadas**, sem `for` ou `while` para
+percorrer os dados, exceto quando o próprio enunciado descreve o algoritmo com
+laços (é o caso da rotação na Q1 da AT3).
 
 ## Estrutura
 
-| Pasta | Conteúdo |
-|-------|----------|
-| `AT1/` | Lista 1 — operações vetorizadas sobre vetores e matrizes |
-| `AT2/` | Lista 2 — processamento de imagens monocromáticas |
+Esta branch contém a Lista 3:
 
-Cada questão fica em um arquivo próprio (`Q1.py`, `Q2.py`, …), executável de
-forma independente.
-
-Na `AT2/`, as imagens de entrada ficam em `imagens de entrada/` e cada script
-grava seus resultados numa pasta derivada do próprio nome (`Q1.py` → `Q1_output/`).
+| Caminho | Conteúdo |
+|---------|----------|
+| `AT3/Q1.py` … `AT3/Q5.py` | uma questão por arquivo, executável de forma independente |
+| `AT3/utils.py` | funções de leitura e gravação de imagens, usadas por todas as questões |
+| `AT3/imagens de entrada/` | imagens fornecidas com o enunciado |
+| `AT3/Qn_output/` | resultados de cada questão, em pasta derivada do nome do script |
+| `AT3/Q3.docx` | análise dos efeitos dos filtros da Q3 |
 
 ## Organização do código
 
@@ -35,6 +35,21 @@ As funções seguem três regras:
 - **São genéricas quanto ao tamanho.** Dimensões e limites vêm sempre de
   `shape`, nunca de valores fixos no código.
 
+Cada passo do enunciado tem **sua própria função**, e o bloco final as encadeia
+uma linha por passo. Na Q4, por exemplo:
+
+```python
+watchPadded = paddingByRepeatingBorder(watchImg, kernelSize=21)
+watchBlurred = applyGaussianBlur(watchPadded, kernelSize=21, sigma=4)
+watchRatio = divideByBlurredVersion(watchImg, watchBlurred)
+watchSketch = convertRatioToGrayLevels(watchRatio)
+```
+
+As contas são feitas em ponto flutuante, porque os valores intermediários podem
+ser negativos, passar de 255 ou ter casas decimais. Só no último passo o
+resultado é levado para a faixa 0–255, arredondado e convertido para `uint8`,
+que é o formato de uma imagem em tons de cinza.
+
 Os arquivos de questão são **autocontidos**: toda a lógica de uma questão fica no
 próprio arquivo, e ele pode ser executado sozinho, sem depender das outras
 questões.
@@ -52,6 +67,7 @@ Cada lista é entregue em sua própria branch:
 |--------|-------|
 | `LEC1_EugenioAraujo` | AT1 |
 | `LEC2_EugenioAraujo` | AT2 |
+| `LEC3_EugenioAraujo` | AT3 |
 
 ## Como executar
 
@@ -60,7 +76,7 @@ python -m venv .venv
 source .venv/Scripts/activate      # Windows (Git Bash)
 pip install -r requirements.txt
 
-python AT2/Q1.py
+python AT3/Q1.py
 ```
 
 ## Dependências
@@ -70,83 +86,124 @@ python AT2/Q1.py
 
 ---
 
-# Enunciados — Lista Extra Classe 2
+# Enunciados — Lista Extra Classe 3
 
-## Q1. Transformação de Intensidade
+## Q1. Rotação de Imagem em múltiplos de 90°
 
-Dada uma **(a)** imagem monocromática, transformar o espaço de intensidades
-(níveis de cinza) para:
+Dada uma imagem monocromática, implementar a rotação da imagem nos seguintes
+ângulos:
 
-- **b)** obter o negativo da imagem, ou seja, o nível de cinza 0 será convertido
-  para 255, o nível 1 para 254 e assim por diante;
-- **c)** espelhar verticalmente a imagem original;
-- **d)** converter o intervalo de intensidades para [100, 200];
-- **e)** inverter os valores dos pixels das linhas pares da imagem, ou seja, os
-  valores dos pixels da linha 0 serão posicionados da direita para a esquerda, os
-  valores dos pixels da linha 2 serão posicionados da direita para a esquerda e
-  assim por diante;
-- **f)** espelhar as linhas da metade superior da imagem na parte inferior da
-  imagem.
+- **a)** 90° no sentido horário;
+- **b)** 180°;
+- **c)** 270° no sentido horário.
 
-## Q2. Ajuste de Brilho
+A rotação deve ser realizada sem utilizar funções prontas de rotação das
+bibliotecas, ou seja, a implementação deve manipular diretamente os índices da
+matriz da imagem. A imagem utilizada é a `baboon_monocromatica.png`.
 
-Aplicar a correção gama para ajustar o brilho de uma imagem monocromática `A` de
-entrada e gerar uma imagem monocromática `B` de saída. A transformação pode ser
-realizada:
+O enunciado descreve o algoritmo: inicializar uma matriz vazia, percorrer todos
+os elementos da original com dois laços aninhados e colocar cada elemento
+`(i, j)` na nova posição, onde `n` é o tamanho da matriz:
 
-- **i)** convertendo-se as intensidades dos pixels do intervalo [0, 255] para
-  [0, 1];
-- **ii)** aplicando-se a equação `B = A^(1/γ)`;
-- **iii)** convertendo-se os valores resultantes de volta para o intervalo
-  [0, 255].
+| Rotação | Nova posição de `(i, j)` |
+|---------|--------------------------|
+| 90° horário | `(j, n − i − 1)` |
+| 180° | `(n − i − 1, n − j − 1)` |
+| 270° horário | `(n − j − 1, i)` |
 
-Realizar a correção com diferentes valores de `γ` (na figura do enunciado:
-1.5, 2.5 e 3.5).
+## Q2. Ampliação da Imagem usando a técnica de vizinho mais próximo
 
-## Q3. Binarização por Limiar (Limiarização)
+A partir de uma imagem monocromática, gerar uma imagem ampliada utilizando a
+técnica de vizinho mais próximo:
 
-Dada uma imagem monocromática `A`, gerar uma imagem binária `B` a partir de um
-limiar fixo `T`. A operação de conversão é dada por:
+- **a)** ampliação por um fator de 2;
+- **b)** ampliação por um fator de 4.
 
-```
-B = 255, se A > T
-B = 0,   caso contrário
-```
+A imagem utilizada é a `baboon_monocromatica.png`.
 
-Na figura do enunciado, `T = 128`.
-
-## Q4. Planos de Bits
-
-Extrair os planos de bits de uma imagem monocromática. Os níveis de cinza de uma
-imagem monocromática com `m` bits podem ser representados na forma de um
-polinômio de base 2:
+Cada pixel da imagem ampliada recebe o valor do pixel mais próximo da imagem
+original. A posição `(i, j)` da imagem ampliada é projetada de volta para a
+original e arredondada para o inteiro mais próximo, onde `n` é o tamanho da
+original e `m` o da ampliada:
 
 ```
-a_(m-1)·2^(m-1) + a_(m-2)·2^(m-2) + ... + a_1·2^1 + a_0·2^0
+x = i · n / m        y = j · n / m
+x' = round(x)        y' = round(y)
+saída(i, j) = entrada(x', y')
 ```
 
-O plano de bits de ordem 0 é formado pelos coeficientes `a_0` de cada pixel,
-enquanto o plano de bits de ordem `m − 1` é formado pelos coeficientes
-`a_(m-1)`.
+## Q3. Filtragem de Imagens
 
-## Q5. Mosaico
+A filtragem aplicada a uma imagem digital é uma operação local que altera os
+valores de intensidade dos pixels levando em conta tanto o valor do pixel em
+questão quanto os valores dos pixels vizinhos. Utiliza-se uma operação de
+convolução (mais precisamente, correlação) de uma máscara pela imagem, o que
+equivale a percorrer toda a imagem alterando seus valores conforme os pesos da
+máscara e as intensidades da imagem.
 
-Construir um mosaico de 4 × 4 blocos a partir de uma imagem monocromática. A
-disposição dos blocos deve seguir a numeração mostrada na figura (c) do
-enunciado:
+Aplicar à imagem `aerial_view.png`:
 
-| | | | |
-|---|---|---|---|
-| 6 | 11 | 13 | 3 |
-| 8 | 16 | 1 | 9 |
-| 12 | 14 | 2 | 7 |
-| 4 | 15 | 10 | 5 |
+- **Filtros de caixa** com máscaras 3×3, 5×5 e 7×7, com todos os pesos iguais a
+  1 e normalizadas por 1/9, 1/25 e 1/49.
+- **Filtros gaussianos** com as máscaras abaixo (referência complementar:
+  <https://patrickemmettfuller.com/gaussian-blur/>):
 
-Os números correspondem à posição original de cada bloco, contada da esquerda
-para a direita e de cima para baixo.
+`h4` = 1/16 ×
 
-## Q6. Combinação de Imagens
+```
+1  2  1
+2  4  2
+1  2  1
+```
 
-Combinar duas imagens monocromáticas de mesmo tamanho por meio da média
-ponderada de seus níveis de cinza. Na figura do enunciado, as combinações
-apresentadas são `0.2·A + 0.8·B`, `0.5·A + 0.5·B` e `0.8·A + 0.2·B`.
+`h5` = 1/273 ×
+
+```
+1   4   7   4   1
+4  16  26  16   4
+7  26  41  26   7
+4  16  26  16   4
+1   4   7   4   1
+```
+
+`h6` = 1/1003 ×
+
+```
+0   0   1    2   1   0  0
+0   3  13   22  13   3  0
+1  13  59   97  59  13  1
+2  22  97  159  97  22  2
+1  13  59   97  59  13  1
+0   3  13   22  13   3  0
+0   0   1    2   1   0  0
+```
+
+## Q4. Esboço a Lápis
+
+Implementar um efeito de esboço a lápis em uma imagem por meio dos seguintes
+passos:
+
+- **i)** aplicar um filtro de desfoque gaussiano (por exemplo, com uma máscara
+  de 21 × 21 pixels) para suavizar os detalhes da imagem;
+- **ii)** dividir a imagem em tons de cinza pela versão desfocada para realçar
+  os contornos.
+
+A imagem utilizada é a `gray_watch.png`.
+
+## Q5. Bordas com filtro passa-alta de segunda ordem (Laplaciano)
+
+Um filtro laplaciano é um detector de bordas utilizado para calcular as segundas
+derivadas de uma imagem, medindo a taxa com que as primeiras derivadas variam.
+Isso permite determinar se a variação entre valores de pixels adjacentes
+corresponde a uma borda ou a uma transição contínua. Os kernels laplacianos
+geralmente contêm valores negativos dispostos em um padrão em cruz, centralizado
+na matriz. Os cantos podem ser iguais a zero ou assumir valores positivos, e o
+valor central pode ser negativo ou positivo.
+
+Aplicar o kernel 3×3 abaixo à imagem `gray_peppers.png`:
+
+```
+0   1   0
+1  -4   1
+0   1   0
+```
