@@ -39,7 +39,7 @@ def applyKernel(imageNdArray, kernel):
 def paddingByRepeatingBorder(imageNdArray, kernelSize):
     margin = kernelSize // 2
 
-    return np.pad(imageNdArray, margin, mode="mean") # pad the image by repeating the border pixels
+    return np.pad(imageNdArray, margin, mode="edge") # pad the image by repeating the border pixels
 
 
 def applyGaussianBlur(imageNdArray, kernelSize, sigma):
