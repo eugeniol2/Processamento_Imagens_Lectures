@@ -69,7 +69,7 @@ def plotBorderComparison(original, results):
 
 img = readImageFromMemory(
     imgName="fish-16.png",
-    imgDirectory="../imagens/imagens/binarias_diversas",
+    imgDirectory="imagens de entrada",
     readMode=cv2.IMREAD_GRAYSCALE,
 )
 

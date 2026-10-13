@@ -86,7 +86,7 @@ def plotEqualizationResults(
 
 img = readImageFromMemory(
     imgName="cameraman_1.png",
-    imgDirectory="../imagens/imagens/histograma",
+    imgDirectory="imagens de entrada",
     readMode=cv2.IMREAD_GRAYSCALE,
 )
 

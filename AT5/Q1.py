@@ -80,7 +80,7 @@ def printHistogramSummary(name, histogram, normalizedHistogram):
 
 img = readImageFromMemory(
     imgName="cameraman_1.png",
-    imgDirectory="../imagens/imagens/histograma",
+    imgDirectory="imagens de entrada",
     readMode=cv2.IMREAD_GRAYSCALE,
 )
 
@@ -97,7 +97,7 @@ plotImageAndHistograms(img, hist, normalizedHist)
 
 otherImg = readImageFromMemory(
     imgName="cameraman_4.png",
-    imgDirectory="../imagens/imagens/histograma",
+    imgDirectory="imagens de entrada",
     readMode=cv2.IMREAD_GRAYSCALE,
 )
 
